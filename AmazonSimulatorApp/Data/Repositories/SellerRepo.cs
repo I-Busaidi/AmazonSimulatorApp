@@ -2,7 +2,7 @@
 
 namespace AmazonSimulatorApp.Data.Repositories
 {
-    public class SellerRepo
+    public class SellerRepo : ISellerRepo
     {
         private readonly ApplicationDbContext _context;
         public SellerRepo(ApplicationDbContext context)

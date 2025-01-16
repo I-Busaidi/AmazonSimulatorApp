@@ -1,5 +1,6 @@
 using AmazonSimulatorApp.Components;
 using AmazonSimulatorApp.Data.Repositories;
+using AmazonSimulatorApp.Repositories;
 using AmazonSimulatorApp.Services;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
@@ -21,6 +22,16 @@ namespace AmazonSimulatorApp
 
                 );
 
+            builder.Services.AddScoped<IClientRepo, ClientRepo>();
+            builder.Services.AddScoped<IClientService, ClientService>();
+            builder.Services.AddScoped<IUserRepo, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<ISellerRepo, SellerRepo>();
+            builder.Services.AddScoped<ISellerService, SellerService>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IProductReviewRepository, ProductReviewRepository>();
+            builder.Services.AddScoped<IProductReviewService, ProductReviewService>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
