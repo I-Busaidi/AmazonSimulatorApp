@@ -40,7 +40,7 @@ public class ProductService : IProductService
     {
         ValidateProduct(product);
 
-        // Check if a product with the same name already exists (example validation)
+        // Check if a product with the same name already exists 
         var existingProducts = await _productRepository.GetAllProductsAsync();
         if (existingProducts.Any(p => p.Name.Equals(product.Name, StringComparison.OrdinalIgnoreCase)))
         {
