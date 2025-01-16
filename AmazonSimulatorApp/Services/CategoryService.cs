@@ -113,6 +113,13 @@ namespace AmazonSimulatorApp.Services
             return _categoryRepository.UpdateCategory(category);
         }
 
+        public int UpdateCategoryCount(int amount, int id)
+        {
+            var category = GetCategoryByIdWithRelatedData(id);
+            category.Count += amount;
+            return _categoryRepository.UpdateCategory(category);
+        }
+
         public void DeleteCategory(int id)
         {
             var category = GetCategoryByIdWithRelatedData(id);

@@ -12,5 +12,6 @@ namespace AmazonSimulatorApp.Services
         CategoryOutputDTO GetCategoryById(int id);
         Category GetCategoryByIdWithRelatedData(int id);
         int UpdateCategory(CategoryInputDTO categoryInput, int id);
+        int UpdateCategoryCount(int amount, int id);
     }
 }
