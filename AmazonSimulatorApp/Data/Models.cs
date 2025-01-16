@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace AmazonSimulatorApp.Data
 {
     public class User
@@ -12,34 +13,31 @@ namespace AmazonSimulatorApp.Data
         public string Password { get; set; }
         public string Role { get; set; }
         public bool IsActive { get; set; }
-
         // Navigation Properties
         public ICollection<Client> Clients { get; set; }
         public ICollection<Seller> Sellers { get; set; }
     }
-
     public class Client
     {
         [Key]
         public int CID { get; set; }
+        [ForeignKey("User")]
         public int UID { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
         public int CompletedOrders { get; set; }
-
         // Navigation Properties
         public User User { get; set; }
         public ICollection<Order> Orders { get; set; }
         public ICollection<ProductReview> ProductReviews { get; set; }
     }
-
     public class Seller
     {
         [Key]
         public int SID { get; set; }
+        [ForeignKey("User")]
         public int UID { get; set; }
         public float Rating { get; set; }
-
         // Navigation Properties
         public User User { get; set; }
         public ICollection<Product> Products { get; set; }
@@ -48,18 +46,31 @@ namespace AmazonSimulatorApp.Data
     {
         [Key]
         public int PID { get; set; }
+        [ForeignKey("Seller")]
         public int SID { get; set; }
+        [ForeignKey("Category")]
         public int CatID { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string Description { get; set; }
-        public string Image { get; set; }
-
         // Navigation Properties
         public Seller Seller { get; set; }
         public Category Category { get; set; }
+
+        public ICollection<ProductImages> ProductImages { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }
         public ICollection<ProductReview> ProductReviews { get; set; }
+    }
+
+    [PrimaryKey(nameof(PID), nameof(ImgPath))]
+    public class ProductImages
+    {
+        [ForeignKey("Product")]
+        public int PID { get; set; }
+
+        public string ImgPath { get; set; }
+
+        public Product Product { get; set; }
     }
 
     public class Category
@@ -68,48 +79,44 @@ namespace AmazonSimulatorApp.Data
         public int CatID { get; set; }
         public string Name { get; set; }
         public int Count { get; set; }
-
         // Navigation Properties
         public ICollection<Product> Products { get; set; }
     }
-
-
     public class Order
     {
         [Key]
         public int OID { get; set; }
+        [ForeignKey("Client")]
         public int CID { get; set; }
         public DateTime Date { get; set; }
         public decimal TotalAmount { get; set; }
-
         // Navigation Properties
         public Client Client { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }
     }
-
     public class OrderDetail
     {
+        [ForeignKey("Order")]
         public int OID { get; set; }
+        [ForeignKey("Product")]
         public int PID { get; set; }
         public int Quantity { get; set; }
-
         // Navigation Properties
         public Order Order { get; set; }
         public Product Product { get; set; }
     }
-
     public class ProductReview
     {
         [Key]
         public int RID { get; set; }
+        [ForeignKey("Product")]
         public int PID { get; set; }
+        [ForeignKey("Client")]
         public int CID { get; set; }
         public string Comment { get; set; }
         public float Rate { get; set; }
-
         // Navigation Properties
         public Product Product { get; set; }
         public Client Client { get; set; }
     }
-
 }

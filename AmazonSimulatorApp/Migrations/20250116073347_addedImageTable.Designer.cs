@@ -4,6 +4,7 @@ using AmazonSimulatorApp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AmazonSimulatorApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250116073347_addedImageTable")]
+    partial class addedImageTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -309,7 +312,7 @@ namespace AmazonSimulatorApp.Migrations
             modelBuilder.Entity("AmazonSimulatorApp.Data.ProductImages", b =>
                 {
                     b.HasOne("AmazonSimulatorApp.Data.Product", "Product")
-                        .WithMany("ProductImages")
+                        .WithMany()
                         .HasForeignKey("PID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -367,8 +370,6 @@ namespace AmazonSimulatorApp.Migrations
             modelBuilder.Entity("AmazonSimulatorApp.Data.Product", b =>
                 {
                     b.Navigation("OrderDetails");
-
-                    b.Navigation("ProductImages");
 
                     b.Navigation("ProductReviews");
                 });
